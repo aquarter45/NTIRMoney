@@ -1,0 +1,10 @@
+name: NTIRMoney
+version: '${project.version}'
+main: me.aq.plugin.ntirmoney.NTIRMoney
+api-version: 1.18
+loadbefore:  [NTIRCommunity, NtIrbackpack, NTIRecoFEATURE]
+commands:
+  money:
+    description:
+    usage:
+    aliases: bal
