@@ -9,8 +9,8 @@ public class MySQL {
     private String host = "localhost";
     private String port = "3306";
     private String database = "ntirplayerdata";
-    private String user = "root";
-    private String password = "";
+    private String user = "NatsuServer";
+    private String password = "TaiWanIsVeryGood";
 
 
     private Connection connection;
@@ -24,7 +24,7 @@ public class MySQL {
     public  void connect() throws ClassNotFoundException, SQLException{
         if(!isConnected()) {
             connection = DriverManager.getConnection("jdbc:mysql://" + host + ":"+ port + "/"
-                    + database + "?useSSL=false", user, password);
+                    + database + "?useSSL=false&autoReconnect=true&failOverReadOnly=false", user, password);
         }
     }
 

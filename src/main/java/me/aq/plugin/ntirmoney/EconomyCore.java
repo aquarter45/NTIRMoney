@@ -7,6 +7,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.UUID;
 
 public class EconomyCore implements Economy {
 
@@ -80,13 +81,15 @@ public class EconomyCore implements Economy {
     }
 
     @Override
-    public double getBalance(String uuid) {
+    public double getBalance(String name) {
+
+        UUID uuid = plugin.getServer().getOfflinePlayer(name).getUniqueId();
 
         if(plugin.getServer().getMotd().equals("Eco")){
-            return plugin.data.GETPoint(uuid);
+            return plugin.data.GETPoint(uuid.toString());
         }
 
-        return plugin.data.GETMoney(uuid);
+        return plugin.data.GETMoney(uuid.toString());
     }
 
     @Override
@@ -102,13 +105,15 @@ public class EconomyCore implements Economy {
     }
 
     @Override
-    public double getBalance(String uuid, String s1) {
+    public double getBalance(String name, String s1) {
+
+        UUID uuid = plugin.getServer().getOfflinePlayer(name).getUniqueId();
 
         if(plugin.getServer().getMotd().equals("Eco")){
-            return plugin.data.GETPoint(uuid);
+            return plugin.data.GETPoint(uuid.toString());
         }
 
-        return plugin.data.GETMoney(uuid);
+        return plugin.data.GETMoney(uuid.toString());
     }
 
     @Override
