@@ -35,7 +35,7 @@ public final class NTIRMoney extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.plugin = this;
+        plugin = this;
 
         this.SQL = new MySQL();
         this.data = new SQLediter();
