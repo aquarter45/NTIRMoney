@@ -26,7 +26,7 @@ public final class NTIRMoney extends JavaPlugin {
     private static Economy econ = null;
     private static Permission perms = null;
 
-    public String prefix = ChatColor.DARK_GREEN + "[" + ChatColor.YELLOW + "金錢" + ChatColor.DARK_GREEN + "]" + ChatColor.RESET + "";
+    public String prefix = ChatColor.DARK_GREEN + "[" + ChatColor.GOLD + "金錢" + ChatColor.DARK_GREEN + "]" + ChatColor.RESET + "";
 
     public static NTIRMoney getPlugin() {
         return plugin;

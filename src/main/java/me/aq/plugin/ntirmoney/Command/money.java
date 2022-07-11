@@ -64,7 +64,7 @@ public class money implements CommandExecutor {
                 return false;
             }
 
-            p.sendMessage(plugin.prefix + ChatColor.LIGHT_PURPLE + "該玩家的剩餘餘額:" + ChatColor.GRAY + ":"
+            p.sendMessage(plugin.prefix + ChatColor.LIGHT_PURPLE + "該玩家的剩餘餘額" + ChatColor.GRAY + ":"
                     + ChatColor.RED + plugin.data.GETMoney(target.getUniqueId().toString()));
 
             return true;
@@ -81,24 +81,41 @@ public class money implements CommandExecutor {
                     return false;
                 }
 
-                if (plugin.getServer().getMotd() == "Eco") {
-                    if (!plugin.data.hasEcoAccount(p) | !plugin.data.hasEcoAccount(target)) {
-                        return false;
-                    }
-
-                    plugin.data.withdrawPoint(Double.parseDouble(args[2]), p.getUniqueId().toString());
-                    plugin.data.addPoint(Double.parseDouble(args[2]), target.getUniqueId().toString());
-                    p.sendMessage(plugin.prefix + ChatColor.GREEN + "你成功轉帳" + ChatColor.RED + args[2] + ChatColor.GREEN +"給" + p.getDisplayName() );
-                }
-
-
                 if (!plugin.data.hasMainAccount(p) | !plugin.data.hasMainAccount(target)) {
                     return false;
                 }
 
-                plugin.data.withdrawMoney(Double.parseDouble(args[2]), p.getUniqueId().toString());
-                plugin.data.addMoney(Double.parseDouble(args[2]), target.getUniqueId().toString());
-                p.sendMessage(plugin.prefix + ChatColor.GREEN + "你成功轉帳" + ChatColor.RED + args[2] + ChatColor.GREEN +"給" + p.getDisplayName() );
+                //小數點偵測
+                if(args[2].contains(".")){
+
+                    String[] afterDot = args[2].split(".");
+
+                    if(afterDot.length >2){
+                        p.sendMessage(plugin.prefix + ChatColor.RED + "請輸入有效的轉帳金額!");
+                        return false;
+                    }
+
+                    int length = afterDot[2].length();
+
+                    if(length > 2){
+                        p.sendMessage(plugin.prefix + ChatColor.RED + "小數點至多兩位!");
+                        return false;
+                    }
+
+                }
+
+                Double withDrawMoney = Double.parseDouble(args[2]);
+
+
+                if(plugin.data.GETMoney(p.getUniqueId().toString()) < withDrawMoney){
+                    p.sendMessage(plugin.prefix + ChatColor.RED + "你的餘額不足!");
+                    return false;
+                }
+
+                plugin.data.withdrawMoney(withDrawMoney, p.getUniqueId().toString());
+                plugin.data.addMoney(withDrawMoney, target.getUniqueId().toString());
+                p.sendMessage(plugin.prefix + ChatColor.GREEN + "你成功轉帳" + ChatColor.RED + withDrawMoney + ChatColor.LIGHT_PURPLE + target.getDisplayName() );
+                target.sendMessage(plugin.prefix + ChatColor.LIGHT_PURPLE + p.getDisplayName() + ChatColor.GREEN + "轉帳了" + withDrawMoney + ChatColor.GREEN +"給你");
             }
 
             if(args[0].equalsIgnoreCase("set")){
